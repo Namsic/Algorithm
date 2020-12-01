@@ -1,36 +1,20 @@
-import itertools
+n = int(input().split()[0])
 
-
-def switch_col(c_list):
-    res = 0
-    for c in c_list:
-        for i in range(len(rows)):
-            rows[i][c] = not rows[i][c]
-            res += all(rows[i])
-            rows[i][c] = not rows[i][c]
-    return res
-
-
-n, m = input().split()
-n = int(n)
-m = int(m)
-col_num = [i for i in range(m)]
-
-rows = []
+row_type = {}
 for i in range(n):
-    rows.append([])
-    temp = input()
-    for j in range(m):
-        rows[i].append(temp[j] == '1')
-
+    r = input()
+    if r in row_type:
+        row_type[r][0] += 1
+    else:
+        row_type[r] = [1, r.count('0')]  # [count, need]
 k = int(input())
-hj = k % 2
-if k > m:
-    k = m
 
-on_rows = []
-
-for i in range(hj, k, 2):
-    for cli in list(itertools.combinations(col_num, i)):
-        on_rows.append(switch_col(cli))
-print(max(on_rows))
+max_on = 0
+for key in row_type:
+    if row_type[key][1] > k:
+        continue
+    if row_type[key][1] % 2 != k % 2:
+        continue
+    if max_on < row_type[key][0]:
+        max_on = row_type[key][0]
+print(max_on)
