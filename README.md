@@ -1,2 +1,2 @@
 # Algorithm
-BOJ
+- baekjoon online judge
